@@ -4,7 +4,7 @@
 
 Criar um sistema em C que simule um cadastro e autenticação de usuários, armazenando os dados em arquivo (como um backend simples de login).
 
-##Requisitos
+**Requisitos** 
 
 Menu principal
 
@@ -15,13 +15,13 @@ O programa deve exibir um menu com as opções:
 3 - Listar usuários (apenas admin)
 4 - Sair
 
-##Cadastro
+**Cadastro**
 
 O usuário informa:
 
 Nome de usuário (sem espaços)
 
-##Senha
+**Senha**
 
 Os dados devem ser armazenados em um arquivo chamado usuarios.txt.
 
@@ -32,7 +32,7 @@ nome senha tipo
 
 Onde tipo pode ser "admin" ou "comum" (o primeiro usuário cadastrado automaticamente será admin).
 
-##Login
+**Login**
 
 O programa pede nome e senha.
 
@@ -46,7 +46,7 @@ Caso contrário:
 Usuário ou senha incorretos.
 
 
-##Listar usuários
+**Listar usuários**
 
 Apenas o usuário admin logado pode listar todos os usuários cadastrados.
 
@@ -58,11 +58,11 @@ Usuários cadastrados:
 - maria (comum)
 
 
-##Persistência
+**Persistência**
 
 Todos os cadastros devem ser salvos de modo que, ao encerrar o programa e rodar novamente, os dados permaneçam.
 
-⚙ Extras
+**Extras**
 
 Criptografar a senha de forma simples (por exemplo, somando +1 no código ASCII de cada caractere).
 
@@ -70,7 +70,7 @@ Validar se o usuário já existe antes de cadastrar.
 
 Limpar a tela a cada ação (usando system("cls") no Windows ou system("clear") no Linux).
 
-🧠 O que esse desafio testa
+🧠 **O que esse desafio me testa**
 
 Manipulação de arquivos (fopen, fprintf, fscanf)
 
