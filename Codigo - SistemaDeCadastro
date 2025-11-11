@@ -4,6 +4,31 @@
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
+#include <sqlite3.h> //biblioteca para banco de dados SQLite 
+
+sqlite3 *db; // Objeto da conexão do banco de dados 
+
+
+int abrir_bd(){ 
+    // Abre ou cria o banco de dados
+    int rc = sqlite3_open("sistema_CadastroUsuarios.db", &db);
+    if(rc != SQLITE3_OK){ 
+        fprintf(stderr, "Não foi possível abrir o banco de dados: %s\n", sqlite3_errmsg(db));
+        return 1; 
+    }
+
+    // Criar tabela se ela não existir 
+    const char *sql = "CREATE TABLE IF NOT EXISTS USUARIOS ( "
+                        "ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+                        "NOME TEXT NOT NULL,"
+                        "EMAIL TEXT NOT NULL UNIQUE, "
+                        "SENHA TEXT NOT NULL,"
+                        "TIPO INTEGER NOT NULL);"; // Porque SqLite não possui o tipo ENUM ; 
+    
+    sqlite3_exec(db, sql, 0 , 0, 0);
+    return 0; 
+}
+
 
 // usar F6 para executar o programa
 
