@@ -23,7 +23,7 @@ typedef struct
     enum TipoUsuario tipo;
 } Usuario;
 
-Usuario usuarios[100];
+Usuario usuarios[10000]; // array para armazenar até 10.000 usuários
 
 // inicialização de variáveis globais
 int qntdUsuarios = 0;   // quantidade de usuários cadastrados
@@ -74,7 +74,7 @@ int main(){
     case 1:
     {
         // Código para cadastrar usuário
-        if (qntdUsuarios < 100)
+        if (qntdUsuarios < 10000)
         {
             printf("Register User\n");
 
