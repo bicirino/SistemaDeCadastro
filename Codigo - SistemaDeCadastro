@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include <locale.h>
-
 // usar F6 para executar o programa
 
 enum TipoUsuario
@@ -13,8 +12,8 @@ enum TipoUsuario
     COMUM
 };
 
-// Estrutura para armazenar informações do usuário
 
+// Estrutura para armazenar informações do usuário
 typedef struct
 {
     char nome[50];
@@ -29,8 +28,8 @@ Usuario usuarios[10000]; // array para armazenar até 10.000 usuários
 int qntdUsuarios = 0;   // quantidade de usuários cadastrados
 int usuarioLogado = -1; // -1 significa que nenhum usuário está logado, se for >=0 significa o índice do usuário logado no array de usuários
 
-void listarUsuarios()
-{ // função para listar usuários cadastrados
+void listarUsuarios() // função para listar usuários cadastrados
+{ 
     if (qntdUsuarios == 0)
     {
         printf("No users registered!\n");
@@ -44,8 +43,48 @@ void listarUsuarios()
     printf("-------------------------------------------------------------------\n");
 }
 
+// Função de persistência de dados binária - Salvar usuários 
+void salvarUsuario(){ 
+    FILE *arq = fopen ("usuarios.dat", "wb"); // wb = write binary 
+
+    if (arq == NULL){ 
+        printf("Não foi possível salvar o arquivo de dados.\n"); 
+        return; 
+    }
+
+    fwrite(&qntdUsuarios, sizeof(int), 1 , arq); // escreve a quantidade total de usuários no arquivo
+
+    fwrite(usuarios, sizeof(Usuario), qntdUsuarios, arq); // escreve o array inteiro com todos os usuários 
+
+    fclose(arq);
+    printf("Dados salvos com sucesso!\n");
+}
+
+
+// função de persistência de dados binária - Carregar usuários 
+void carregarUsuarios(){ 
+    FILE *arq = fopen ("usuarios.dat", "rb"); // rb = read binary 
+
+    if (arq == NULL){ 
+        printf("Arquivo de dados não encontrado. Iniciando com nenhum usuário cadastrado.\n"); 
+        return; 
+    }
+
+    fread(&qntdUsuarios, sizeof(int), 1 , arq); // lê a quantidade total de usuários do arquivo
+
+    fread(usuarios, sizeof(Usuario), qntdUsuarios, arq); // lê o array inteiro com todos os usuários 
+
+    fclose(arq);
+    printf("Dados carregados com sucesso! %d usuários carregados.\n", qntdUsuarios);
+
+}
+
+
 int main(){
-    setlocale(LC_ALL,"");
+    setlocale(LC_ALL,"Portuguese");
+
+    carregarUsuarios(); // chama a função de carragar usuários 
+
     
 
     // Escolha de opções fornecidas
@@ -106,7 +145,8 @@ int main(){
         {
             printf("User limit reached!\n");
         }
-
+        
+        salvarUsuario(); // chama a função de salvar usuários 
         break;
     }
 
@@ -182,8 +222,9 @@ int main(){
     case 4:
     {
         printf("\tLeaving the system...\n");
-        exit(0);
-
+        salvarUsuario(); // chama a função de salvar usuários só para garantir que tudo será salvo antes de sair 
+        exit(0); 
+        
         break;
     }
     }
