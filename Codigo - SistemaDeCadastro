@@ -48,7 +48,7 @@ void salvarUsuario(){
     FILE *arq = fopen ("usuarios.dat", "wb"); // wb = write binary 
 
     if (arq == NULL){ 
-        printf("Não foi possível salvar o arquivo de dados.\n"); 
+        printf("The data file could not be saved.\n"); 
         return; 
     }
 
@@ -57,7 +57,7 @@ void salvarUsuario(){
     fwrite(usuarios, sizeof(Usuario), qntdUsuarios, arq); // escreve o array inteiro com todos os usuários 
 
     fclose(arq);
-    printf("Dados salvos com sucesso!\n");
+    printf("Data loaded successfully!\n");
 }
 
 
@@ -66,7 +66,7 @@ void carregarUsuarios(){
     FILE *arq = fopen ("usuarios.dat", "rb"); // rb = read binary 
 
     if (arq == NULL){ 
-        printf("Arquivo de dados não encontrado. Iniciando com nenhum usuário cadastrado.\n"); 
+        printf("Data file not found. Starting with no registered users.\n"); 
         return; 
     }
 
@@ -75,7 +75,7 @@ void carregarUsuarios(){
     fread(usuarios, sizeof(Usuario), qntdUsuarios, arq); // lê o array inteiro com todos os usuários 
 
     fclose(arq);
-    printf("Dados carregados com sucesso! %d usuários carregados.\n", qntdUsuarios);
+    printf("Data loaded successfully! %d users loaded.\n", qntdUsuarios);
 
 }
 
